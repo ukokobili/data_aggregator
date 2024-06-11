@@ -1,0 +1,12 @@
+services:
+  etl_pipeline:
+    image: etl_pipeline
+    container_name: etl_pipeline
+    build: 
+      context: ./
+      dockerfile: ./containers/Dockerfile
+    volumes:
+      - ./:/code
+    working_dir: /code
+    env_file: 
+      - .env
