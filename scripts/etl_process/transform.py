@@ -103,4 +103,5 @@ headers = {
 # Ensure the btc_to_usd_rate() function is called correctly
 btc_rate = btc_to_usd_rate()
 
-data_transformation(loop_through_api(url, headers), btc_rate).to_csv('sample.csv', index=False)
+
+data_x = data_transformation(loop_through_api(url, headers), btc_rate)

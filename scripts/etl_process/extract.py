@@ -6,7 +6,7 @@ from typing import Dict, List
 
 # Import the config package
 sys.path.insert(0, './logs/')
-from config import log_config
+from config import log_config # noqa
 
 # Call the log config function
 log_config()
