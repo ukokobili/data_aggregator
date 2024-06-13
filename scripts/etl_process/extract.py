@@ -29,26 +29,33 @@ def get_token_data(url: str, headers: Dict[str, str]) -> List[Dict]:
     limit = 100  # Maximum number of results per page
     page = 1  # Current page number
 
+    logger.info(f"Starting to fetch data from {url} with headers: {headers}")
+
     while True:
         try:
             paginated_url = f"{url}?per_page={limit}&page={page}"
             response = requests.get(paginated_url, headers=headers)
             response.raise_for_status()  # Raise an HTTPError for bad responses
-            logger.info(f'API request status: {response.status_code}')
+            logger.info(
+                f'API request to {paginated_url} returned status: {response.status_code}')
             
             data = response.json()
             all_data.extend(data)
+            logger.info(f"Fetched {len(data)} records from page {page}")
 
             if len(data) < limit:
+                logger.info("No more data to fetch. Exiting loop.")
                 break
 
             page += 1
+            logger.info(f"Proceeding to the next page: {page}")
             # Add a delay before the next request
             time.sleep(1)  # Adjust the delay as needed
 
         except requests.exceptions.HTTPError as http_err:
             if response.status_code == 429:
-                logger.warning('Rate limit exceeded. Retrying after a delay...')
+                logger.warning(
+                    'Rate limit exceeded. Retrying after a delay...')
                 time.sleep(60)  # Delay for 60 seconds before retrying
                 continue
             logger.error(f'HTTP error occurred: {http_err}')
@@ -57,14 +64,29 @@ def get_token_data(url: str, headers: Dict[str, str]) -> List[Dict]:
             logger.error(f'An unexpected error occurred: {err}')
             break
 
+    logger.info(
+        f"Data fetching complete. Total records fetched: {len(all_data)}")
     return all_data
 
 
-def btc_usd_current_price() -> float:
+def btc_to_usd_rate() -> float:
     """
     Send a GET request to the API endpoint
     Extract the rate in USD from the response
     Convert to float, round to 2 decimal places, and return
     """
-    response = requests.get('https://api.coincap.io/v2/rates/bitcoin')
-    return round(float(response.json()['data']['rateUsd']), 2)
+    try:
+        logger.info("Fetching BTC to USD rate from CoinCap API")
+        response = requests.get('https://api.coincap.io/v2/rates/bitcoin')
+        response.raise_for_status()
+        rate = round(float(response.json()['data']['rateUsd']), 2)
+        logger.info(f"Successfully fetched BTC to USD rate: {rate}")
+        return rate
+    except requests.exceptions.HTTPError as http_err:
+        logger.error(
+            f'HTTP error occurred while fetching BTC to USD rate: {http_err}')
+    except Exception as err:
+        logger.error(
+            f'An unexpected error occurred while fetching BTC to USD rate: {err}')
+    return 0.0  # Return a default value in case of error
+
