@@ -1,14 +1,12 @@
-import os
 import sys
 import logging
 import requests
+import time
 from typing import Dict, List
 
 # Import the config package
 sys.path.insert(0, './logs/')
 from config import log_config
-
-API_KEY = os.getenv('API_Key')
 
 # Call the log config function
 log_config()
@@ -45,17 +43,28 @@ def get_token_data(url: str, headers: Dict[str, str]) -> List[Dict]:
                 break
 
             page += 1
+            # Add a delay before the next request
+            time.sleep(1)  # Adjust the delay as needed
 
+        except requests.exceptions.HTTPError as http_err:
+            if response.status_code == 429:
+                logger.warning('Rate limit exceeded. Retrying after a delay...')
+                time.sleep(60)  # Delay for 60 seconds before retrying
+                continue
+            logger.error(f'HTTP error occurred: {http_err}')
+            break
         except Exception as err:
             logger.error(f'An unexpected error occurred: {err}')
             break
 
     return all_data
 
-url = 'https://api.coingecko.com/api/v3/exchanges'
-headers = {
-    'accept': 'application/json',
-    'x-cg-pro-api-key': API_KEY
-}
 
-get_token_data(url, headers)
+def btc_usd_current_price() -> float:
+    """
+    Send a GET request to the API endpoint
+    Extract the rate in USD from the response
+    Convert to float, round to 2 decimal places, and return
+    """
+    response = requests.get('https://api.coincap.io/v2/rates/bitcoin')
+    return round(float(response.json()['data']['rateUsd']), 2)
