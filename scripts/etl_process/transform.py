@@ -15,7 +15,6 @@ logger = logging.getLogger(__name__)
 
 # Define the function
 def loop_through_api(api_raw_data: pd.DataFrame) -> pd.DataFrame:
-    logger.info(f"Fetching data from API")
     
     try:
         # Fetch data from API
@@ -48,8 +47,6 @@ def loop_through_api(api_raw_data: pd.DataFrame) -> pd.DataFrame:
             logger.warning(f"Skipping non-dict result: {result}")  
     # Convert the list to a DataFrame and return
     data_ = pd.DataFrame(raw_data)  
-    logger.info(
-        f'There are {data_.shape[0]} rows & {data_.shape[1]} columns.')
 
     return data_
 
@@ -76,36 +73,27 @@ def data_transformation(
     Returns:
         pd.DataFrame: The DataFrame with additional columns.
     """
-    logger.info("Starting data transformation.")
 
     # Convert the trade volume to USD
     df['trade_vol_24h_usd'] = df['trade_vol_24h_btc'] * btc_to_usd_rate
     df['trade_vol_24h_usd_normalized'] = (
         df['trade_vol_24h_btc_normalized'] * btc_to_usd_rate)
-    logger.debug("Trade volume converted to USD.")
 
     # Format the USD values for readability
     df['trade_vol_24h_usd'] = df['trade_vol_24h_usd'].apply(
         lambda x: f"{x:.2f}")
     df['trade_vol_24h_usd_normalized'] = (
         df['trade_vol_24h_usd_normalized'].apply(lambda x: f"{x:.2f}"))
-    logger.debug("Trade volume formatted for readability.")
 
     df['age_of_exchange'] = datetime.now().year - df['year_established']
-    logger.info("Calculated age of each exchange.")
     
     df['ingested_at'] = datetime.now()
-    logger.info('Added the ingested time column to the DataFrame')
 
     # convert from float to int
     df['age_of_exchange'] = df['age_of_exchange'].apply(convert_to_int)
     df['year_established'] = df['year_established'].apply(convert_to_int)
     df['trust_score'] = df['trust_score'].apply(convert_to_int)
     df['trust_score_rank'] = df['trust_score_rank'].apply(convert_to_int)
-    logger.info('Conversion from float to integer completed')
-
-    logger.info(
-        f'There currently {df.shape[0]} rows & {df.shape[1]} columns.')
     
     return df
 

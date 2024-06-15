@@ -5,8 +5,8 @@ import time
 from typing import Dict, List
 
 # Import the config package
-sys.path.insert(0, './logs/')
-from config import log_config # noqa
+sys.path.insert(0, "./logs/")
+from config import log_config  # noqa
 
 # Call the log config function
 log_config()
@@ -38,8 +38,9 @@ def get_exchange_data(url: str, headers: Dict[str, str]) -> List[Dict]:
             response = requests.get(paginated_url, headers=headers)
             response.raise_for_status()  # Raise an HTTPError for bad responses
             logger.info(
-                f'API request to {paginated_url} returned status: {response.status_code}')
-            
+                f"API request to {paginated_url} returned status: {response.status_code}"
+            )
+
             data = response.json()
             all_data.extend(data)
             logger.info(f"Fetched {len(data)} records from page {page}")
@@ -55,18 +56,15 @@ def get_exchange_data(url: str, headers: Dict[str, str]) -> List[Dict]:
 
         except requests.exceptions.HTTPError as http_err:
             if response.status_code == 429:
-                logger.warning(
-                    'Rate limit exceeded. Retrying after a delay...')
+                logger.warning("Rate limit exceeded. Retrying after a delay...")
                 time.sleep(60)  # Delay for 60 seconds before retrying
                 continue
-            logger.error(f'HTTP error occurred: {http_err}')
+            logger.error(f"HTTP error occurred: {http_err}")
             break
         except Exception as err:
-            logger.error(f'An unexpected error occurred: {err}')
+            logger.error(f"An unexpected error occurred: {err}")
             break
 
-    logger.info(
-        f"Data fetching complete. Total records fetched: {len(all_data)}")
     return all_data
 
 
@@ -78,16 +76,15 @@ def btc_to_usd_rate() -> float:
     """
     try:
         logger.info("Fetching BTC to USD rate from CoinCap API")
-        response = requests.get('https://api.coincap.io/v2/rates/bitcoin')
+        response = requests.get("https://api.coincap.io/v2/rates/bitcoin")
         response.raise_for_status()
-        rate = round(float(response.json()['data']['rateUsd']), 2)
+        rate = round(float(response.json()["data"]["rateUsd"]), 2)
         logger.info(f"Successfully fetched BTC to USD rate: {rate}")
         return rate
     except requests.exceptions.HTTPError as http_err:
-        logger.error(
-            f'HTTP error occurred while fetching BTC to USD rate: {http_err}')
+        logger.error(f"HTTP error occurred while fetching BTC to USD rate: {http_err}")
     except Exception as err:
         logger.error(
-            f'An unexpected error occurred while fetching BTC to USD rate: {err}')
+            f"An unexpected error occurred while fetching BTC to USD rate: {err}"
+        )
     return 0.0  # Return a default value in case of error
-

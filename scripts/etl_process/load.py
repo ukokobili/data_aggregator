@@ -32,7 +32,7 @@ def write_to_motherduck_from_data_frame(data_frame):
     logger.info("Starting to write DataFrame to MotherDuck")
 
     try:
-        logger.debug(f"Connecting to MotherDuck database: {database_name}")  
+          
         with duckdb.connect(
             f'md:{database_name}?motherduck_token={motherduck_token}'
         ) as con:
@@ -58,8 +58,5 @@ def write_to_motherduck_from_data_frame(data_frame):
                 ingested_at = EXCLUDED.ingested_at;
                 """
             )
-        logger.info('Successfully wrote to MotherDuck')
     except duckdb.Error as e:
         logger.error(f"Error writing to MotherDuck: {e}")
-
-logger.info("Data warehouse variables loaded successfully")
