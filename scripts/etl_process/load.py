@@ -1,8 +1,7 @@
-import logging
 import os
 import sys
-
 import duckdb
+import logging
 
 sys.path.insert(0, './logs/')
 from config import log_config  # noqa
@@ -40,18 +39,23 @@ def write_to_motherduck_from_data_frame(data_frame):
             logger.debug("Executing SQL insert/update command")
             con.sql(
                 f"""
-                INSERT INTO tokens
+                INSERT INTO exchange
                 SELECT * FROM {'data_frame'}
-                ON CONFLICT (exchangeId) DO UPDATE SET
+                ON CONFLICT (id) DO UPDATE SET
                 name = EXCLUDED.name,
-                rank = EXCLUDED.rank,
-                percentTotalVolume = EXCLUDED.percentTotalVolume,
-                volumeUsd = EXCLUDED.volumeUsd,
-                tradingPairs = EXCLUDED.tradingPairs,
-                socket = EXCLUDED.socket,
-                exchangeUrl = EXCLUDED.exchangeUrl,
-                updated = EXCLUDED.updated,
-                updated_at = EXCLUDED.updated_at;
+                year_established = EXCLUDED.year_established,
+                country = EXCLUDED.country,
+                description = EXCLUDED.description,
+                url = EXCLUDED.url,
+                has_trading_incentive = EXCLUDED.has_trading_incentive,
+                trust_score = EXCLUDED.trust_score,
+                trust_score_rank = EXCLUDED.trust_score_rank,
+                trade_vol_24h_btc = EXCLUDED.trade_vol_24h_btc,
+                trade_vol_24h_btc_normalized = EXCLUDED.trade_vol_24h_btc_normalized,
+                trade_vol_24h_usd = EXCLUDED.trade_vol_24h_usd,
+                trade_vol_24h_usd_normalized = EXCLUDED.trade_vol_24h_usd_normalized,
+                age_of_exchange = EXCLUDED.age_of_exchange,
+                ingested_at = EXCLUDED.ingested_at;
                 """
             )
         logger.info('Successfully wrote to MotherDuck')

@@ -14,7 +14,8 @@ log_config()
 # Get logger for the current module (__name__)
 logger = logging.getLogger(__name__)
 
-def get_token_data(url: str, headers: Dict[str, str]) -> List[Dict]:
+
+def get_exchange_data(url: str, headers: Dict[str, str]) -> List[Dict]:
     """
     Fetches token data from the provided API endpoint using pagination.
 

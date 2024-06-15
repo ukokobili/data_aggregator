@@ -1,9 +1,8 @@
-import os 
 import sys
 import logging
+import numpy as np
 import pandas as pd
 from datetime import datetime
-from extract import get_token_data, btc_to_usd_rate
 
 sys.path.insert(0, './logs/')
 from config import log_config  # noqa
@@ -13,16 +12,14 @@ log_config()
 # Logger for the current module (__name__)
 logger = logging.getLogger(__name__)
 
-API_KEY = os.getenv('API_KEY')
-
 
 # Define the function
-def loop_through_api(url: str, headers: dict) -> pd.DataFrame:
-    logger.info(f"Fetching data from API: {url}")
+def loop_through_api(api_raw_data: pd.DataFrame) -> pd.DataFrame:
+    logger.info(f"Fetching data from API")
     
     try:
         # Fetch data from API
-        results = get_token_data(url, headers)
+        results = api_raw_data
         logger.info("Data fetched successfully from API.")
     except Exception as e:
         logger.error(f"Error fetching data from API: {e}")
@@ -32,18 +29,18 @@ def loop_through_api(url: str, headers: dict) -> pd.DataFrame:
     for result in results:  # Iterate through each result
         # Check if the result is a dictionary
         if isinstance(result, dict):
-            extract = {  # Extract specific fields from the result
-                'id': result['id'],
-                'name': result['name'],
-                'year_established': result['year_established'],
-                'country': result['country'],
-                'description': result['description'],
-                'url': result['url'],
-                'has_trading_incentive': result['has_trading_incentive'],
-                'trust_score': result['trust_score'],
-                'trust_score_rank': result['trust_score_rank'],
-                'trade_vol_24h_btc': result['trade_volume_24h_btc'],
-                'trade_vol_24h_btc_normalized': result['trade_volume_24h_btc_normalized']
+            extract = { # Extract specific fields from the result
+            'id': result['id'],
+            'name': result['name'],
+            'year_established': result['year_established'],
+            'country': result['country'],
+            'description': result['description'],
+            'url': result['url'],
+            'has_trading_incentive': result['has_trading_incentive'],
+            'trust_score': result['trust_score'],
+            'trust_score_rank': result['trust_score_rank'],
+            'trade_vol_24h_btc': result['trade_volume_24h_btc'],
+            'trade_vol_24h_btc_normalized': result['trade_volume_24h_btc_normalized']
             }
             raw_data.append(extract)  # Add the extracted data to the list
         else:
@@ -56,12 +53,20 @@ def loop_through_api(url: str, headers: dict) -> pd.DataFrame:
 
     return data_
 
+def convert_to_int(x):
+    # Convert to float first to handle strings
+    if pd.notna(x):
+        return int(float(x))  
+    else:
+        return np.nan
+    
 
 def data_transformation(
         df: pd.DataFrame, btc_to_usd_rate: float) -> pd.DataFrame:
     """
     Convert and format the trade volume in BTC to USD.
     Calculate the age of each exchange.
+    Ingested date and time
 
     Args:
         df (pd.DataFrame): The DataFrame containing the trade volume data
@@ -74,9 +79,9 @@ def data_transformation(
     logger.info("Starting data transformation.")
 
     # Convert the trade volume to USD
+    df['trade_vol_24h_usd'] = df['trade_vol_24h_btc'] * btc_to_usd_rate
     df['trade_vol_24h_usd_normalized'] = (
         df['trade_vol_24h_btc_normalized'] * btc_to_usd_rate)
-    df['trade_vol_24h_usd'] = df['trade_vol_24h_btc'] * btc_to_usd_rate
     logger.debug("Trade volume converted to USD.")
 
     # Format the USD values for readability
@@ -88,20 +93,20 @@ def data_transformation(
 
     df['age_of_exchange'] = datetime.now().year - df['year_established']
     logger.info("Calculated age of each exchange.")
-    logger.info(f'There currently {df.shape[0]} rows & {df.shape[1]} columns.')
+    
+    df['ingested_at'] = datetime.now()
+    logger.info('Added the ingested time column to the DataFrame')
 
+    # convert from float to int
+    df['age_of_exchange'] = df['age_of_exchange'].apply(convert_to_int)
+    df['year_established'] = df['year_established'].apply(convert_to_int)
+    df['trust_score'] = df['trust_score'].apply(convert_to_int)
+    df['trust_score_rank'] = df['trust_score_rank'].apply(convert_to_int)
+    logger.info('Conversion from float to integer completed')
+
+    logger.info(
+        f'There currently {df.shape[0]} rows & {df.shape[1]} columns.')
+    
     return df
 
 
-url = 'https://api.coingecko.com/api/v3/exchanges'
-headers = {
-    'accept': 'application/json',
-    'x-cg-pro-api-key': API_KEY
-}
-
-
-# Ensure the btc_to_usd_rate() function is called correctly
-btc_rate = btc_to_usd_rate()
-
-
-data_x = data_transformation(loop_through_api(url, headers), btc_rate)
