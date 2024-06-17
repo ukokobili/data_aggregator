@@ -1,54 +1,240 @@
-2024-06-15 05:02:03,832 [INFO] etl_process.extract: Fetching BTC to USD rate from CoinCap API
-2024-06-15 05:02:03,835 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coincap.io:443
-2024-06-15 05:02:04,052 [DEBUG] urllib3.connectionpool: https://api.coincap.io:443 "GET /v2/rates/bitcoin HTTP/1.1" 200 None
-2024-06-15 05:02:04,053 [INFO] etl_process.extract: Successfully fetched BTC to USD rate: 66306.89
-2024-06-15 05:02:04,054 [INFO] __main__: Pipeline started at 2024-06-15 05:02:04.054342
-2024-06-15 05:02:04,054 [INFO] __main__: Fetching exchange data from CoinGecko API
-2024-06-15 05:02:04,054 [INFO] etl_process.extract: Starting to fetch data from https://api.coingecko.com/api/v3/exchanges with headers: {'accept': 'application/json', 'x-cg-pro-api-key': 'CG-e2wRRAdihEkAP6M4sLxu73N3'}
-2024-06-15 05:02:04,056 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
-2024-06-15 05:02:04,610 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=1 HTTP/1.1" 200 None
-2024-06-15 05:02:04,626 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=1 returned status: 200
-2024-06-15 05:02:04,631 [INFO] etl_process.extract: Fetched 100 records from page 1
-2024-06-15 05:02:04,632 [INFO] etl_process.extract: Proceeding to the next page: 2
-2024-06-15 05:02:05,634 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
-2024-06-15 05:02:06,339 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=2 HTTP/1.1" 400 None
-2024-06-15 05:02:06,346 [ERROR] etl_process.extract: HTTP error occurred: 400 Client Error: Bad Request for url: https://api.coingecko.com/api/v3/exchanges?per_page=100&page=2
-2024-06-15 05:02:06,347 [INFO] __main__: Fetched exchange data: 100 records
-2024-06-15 05:02:06,347 [INFO] __main__: Transforming exchange data
-2024-06-15 05:02:06,347 [INFO] etl_process.transform: Data fetched successfully from API.
-2024-06-15 05:02:06,364 [INFO] __main__: Transformed complete, table: 100 rows
-2024-06-15 05:02:06,364 [INFO] __main__: Converting BTC to USD and performing additional transformations
-2024-06-15 05:02:06,405 [INFO] __main__: Data transformation complete.
-2024-06-15 05:02:06,405 [INFO] __main__:  100 rows & 15 columns.
-2024-06-15 05:02:06,405 [INFO] __main__: Loading data into data warehouse
-2024-06-15 05:02:06,405 [INFO] etl_process.load: Starting to write DataFrame to MotherDuck
-2024-06-15 05:03:21,714 [DEBUG] etl_process.load: Executing SQL insert/update command
-2024-06-15 05:03:23,071 [INFO] __main__: Data successfully loaded into MotherDuck
-2024-06-15 05:03:23,072 [INFO] __main__: Pipeline completed successfully at 2024-06-15 05:03:23.072331.Total time: 0:01:19.017989
-2024-06-15 07:44:31,691 [INFO] etl_process.extract: Fetching BTC to USD rate from CoinCap API
-2024-06-15 07:44:31,696 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coincap.io:443
-2024-06-15 07:44:32,110 [DEBUG] urllib3.connectionpool: https://api.coincap.io:443 "GET /v2/rates/bitcoin HTTP/1.1" 200 None
-2024-06-15 07:44:32,111 [INFO] etl_process.extract: Successfully fetched BTC to USD rate: 66123.93
-2024-06-15 07:44:32,112 [INFO] __main__: Pipeline started at 2024-06-15 07:44:32.112379
-2024-06-15 07:44:32,112 [INFO] __main__: Fetching exchange data from CoinGecko API
-2024-06-15 07:44:32,112 [INFO] etl_process.extract: Starting to fetch data from https://api.coingecko.com/api/v3/exchanges with headers: {'accept': 'application/json', 'x-cg-pro-api-key': 'CG-e2wRRAdihEkAP6M4sLxu73N3'}
-2024-06-15 07:44:32,114 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
-2024-06-15 07:44:32,685 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=1 HTTP/1.1" 200 None
-2024-06-15 07:44:32,689 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=1 returned status: 200
-2024-06-15 07:44:32,690 [INFO] etl_process.extract: Fetched 100 records from page 1
-2024-06-15 07:44:32,690 [INFO] etl_process.extract: Proceeding to the next page: 2
-2024-06-15 07:44:33,694 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
-2024-06-15 07:44:34,180 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=2 HTTP/1.1" 400 None
-2024-06-15 07:44:34,182 [ERROR] etl_process.extract: HTTP error occurred: 400 Client Error: Bad Request for url: https://api.coingecko.com/api/v3/exchanges?per_page=100&page=2
-2024-06-15 07:44:34,182 [INFO] __main__: Fetched exchange data: 100 records
-2024-06-15 07:44:34,182 [INFO] __main__: Transforming exchange data
-2024-06-15 07:44:34,182 [INFO] etl_process.transform: Data fetched successfully from API.
-2024-06-15 07:44:34,185 [INFO] __main__: Transformed complete, table: 100 rows
-2024-06-15 07:44:34,185 [INFO] __main__: Converting BTC to USD and performing additional transformations
-2024-06-15 07:44:34,201 [INFO] __main__: Data transformation complete.
-2024-06-15 07:44:34,201 [INFO] __main__:  100 rows & 15 columns.
-2024-06-15 07:44:34,201 [INFO] __main__: Loading data into data warehouse
-2024-06-15 07:44:34,201 [INFO] etl_process.load: Starting to write DataFrame to MotherDuck
-2024-06-15 07:45:32,291 [DEBUG] etl_process.load: Executing SQL insert/update command
-2024-06-15 07:45:33,107 [INFO] __main__: Data successfully loaded into MotherDuck
-2024-06-15 07:45:33,107 [INFO] __main__: Pipeline completed successfully at 2024-06-15 07:45:33.107940.Total time: 0:01:00.995561
+2024-06-15 13:59:08,828 [INFO] etl_process.extract: Fetching BTC to USD rate from CoinCap API
+2024-06-15 13:59:08,832 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coincap.io:443
+2024-06-15 13:59:09,331 [DEBUG] urllib3.connectionpool: https://api.coincap.io:443 "GET /v2/rates/bitcoin HTTP/1.1" 200 None
+2024-06-15 13:59:09,332 [INFO] etl_process.extract: Successfully fetched BTC to USD rate: 66302.08
+2024-06-15 13:59:09,333 [INFO] __main__: Pipeline started at 2024-06-15 13:59:09.333400
+2024-06-15 13:59:09,333 [INFO] __main__: Fetching exchange data from CoinGecko API
+2024-06-15 13:59:09,333 [INFO] etl_process.extract: Starting to fetch data from https://api.coingecko.com/api/v3/exchanges with headers: {'accept': 'application/json', 'x-cg-pro-api-key': 'CG-e2wRRAdihEkAP6M4sLxu73N3'}
+2024-06-15 13:59:09,335 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 13:59:09,985 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=1 HTTP/1.1" 400 None
+2024-06-15 13:59:09,986 [ERROR] etl_process.extract: HTTP error occurred: 400 Client Error: Bad Request for url: https://api.coingecko.com/api/v3/exchanges?per_page=100&page=1
+2024-06-15 13:59:09,987 [INFO] __main__: Fetched exchange data: 0 records
+2024-06-15 13:59:09,987 [INFO] __main__: Transforming exchange data
+2024-06-15 13:59:09,987 [INFO] etl_process.transform: Data fetched successfully from API.
+2024-06-15 13:59:09,989 [INFO] __main__: Transformed complete, table: 0 rows
+2024-06-15 13:59:09,989 [INFO] __main__: Converting BTC to USD and performing additional transformations
+2024-06-15 13:59:09,989 [ERROR] __main__: Error running pipeline: 'trade_vol_24h_btc'
+2024-06-15 15:22:52,076 [INFO] numexpr.utils: NumExpr defaulting to 4 threads.
+2024-06-15 15:22:52,493 [INFO] etl_process.extract: Fetching BTC to USD rate from CoinCap API
+2024-06-15 15:22:52,496 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coincap.io:443
+2024-06-15 15:22:53,082 [DEBUG] urllib3.connectionpool: https://api.coincap.io:443 "GET /v2/rates/bitcoin HTTP/1.1" 200 None
+2024-06-15 15:22:53,083 [INFO] etl_process.extract: Successfully fetched BTC to USD rate: 66301.48
+2024-06-15 15:22:53,085 [INFO] __main__: Pipeline started at 2024-06-15 15:22:53.085664
+2024-06-15 15:22:53,086 [INFO] __main__: Fetching exchange data from CoinGecko API
+2024-06-15 15:22:53,086 [INFO] etl_process.extract: Starting to fetch data from https://api.coingecko.com/api/v3/exchanges with headers: {'accept': 'application/json', 'x-cg-pro-api-key': None}
+2024-06-15 15:22:53,087 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 15:22:53,687 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=1 HTTP/1.1" 200 None
+2024-06-15 15:22:53,689 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=1 returned status: 200
+2024-06-15 15:22:53,690 [INFO] etl_process.extract: Fetched 100 records from page 1
+2024-06-15 15:22:53,690 [INFO] etl_process.extract: Proceeding to the next page: 2
+2024-06-15 15:22:54,691 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 15:22:55,318 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=2 HTTP/1.1" 200 None
+2024-06-15 15:22:55,322 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=2 returned status: 200
+2024-06-15 15:22:55,324 [INFO] etl_process.extract: Fetched 100 records from page 2
+2024-06-15 15:22:55,324 [INFO] etl_process.extract: Proceeding to the next page: 3
+2024-06-15 15:22:56,331 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 15:22:57,423 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=3 HTTP/1.1" 200 None
+2024-06-15 15:22:57,433 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=3 returned status: 200
+2024-06-15 15:22:57,440 [INFO] etl_process.extract: Fetched 100 records from page 3
+2024-06-15 15:22:57,441 [INFO] etl_process.extract: Proceeding to the next page: 4
+2024-06-15 15:22:58,440 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 15:22:59,837 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=4 HTTP/1.1" 200 None
+2024-06-15 15:22:59,841 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=4 returned status: 200
+2024-06-15 15:22:59,843 [INFO] etl_process.extract: Fetched 100 records from page 4
+2024-06-15 15:22:59,844 [INFO] etl_process.extract: Proceeding to the next page: 5
+2024-06-15 15:23:00,848 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 15:23:01,482 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=5 HTTP/1.1" 200 None
+2024-06-15 15:23:01,491 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=5 returned status: 200
+2024-06-15 15:23:01,498 [INFO] etl_process.extract: Fetched 100 records from page 5
+2024-06-15 15:23:01,499 [INFO] etl_process.extract: Proceeding to the next page: 6
+2024-06-15 15:23:02,505 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 15:23:03,240 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=6 HTTP/1.1" 200 None
+2024-06-15 15:23:03,244 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=6 returned status: 200
+2024-06-15 15:23:03,247 [INFO] etl_process.extract: Fetched 100 records from page 6
+2024-06-15 15:23:03,247 [INFO] etl_process.extract: Proceeding to the next page: 7
+2024-06-15 15:23:04,249 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 15:23:04,639 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=7 HTTP/1.1" 429 187
+2024-06-15 15:23:04,644 [WARNING] etl_process.extract: Rate limit exceeded. Retrying after a delay...
+2024-06-15 15:24:04,642 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 15:24:05,294 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=7 HTTP/1.1" 200 None
+2024-06-15 15:24:05,297 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=7 returned status: 200
+2024-06-15 15:24:05,298 [INFO] etl_process.extract: Fetched 100 records from page 7
+2024-06-15 15:24:05,298 [INFO] etl_process.extract: Proceeding to the next page: 8
+2024-06-15 15:24:06,299 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 15:24:06,962 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=8 HTTP/1.1" 200 None
+2024-06-15 15:24:06,964 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=8 returned status: 200
+2024-06-15 15:24:06,965 [INFO] etl_process.extract: Fetched 100 records from page 8
+2024-06-15 15:24:06,965 [INFO] etl_process.extract: Proceeding to the next page: 9
+2024-06-15 15:24:07,966 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 15:24:08,590 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=9 HTTP/1.1" 200 None
+2024-06-15 15:24:08,594 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=9 returned status: 200
+2024-06-15 15:24:08,596 [INFO] etl_process.extract: Fetched 76 records from page 9
+2024-06-15 15:24:08,597 [INFO] etl_process.extract: No more data to fetch. Exiting loop.
+2024-06-15 15:24:08,599 [INFO] __main__: Fetched exchange data: 876 records
+2024-06-15 15:24:08,600 [INFO] __main__: Transforming exchange data
+2024-06-15 15:24:08,600 [INFO] etl_process.transform: Data fetched successfully from API.
+2024-06-15 15:24:08,607 [INFO] __main__: Transformed complete, table: 876 rows
+2024-06-15 15:24:08,608 [INFO] __main__: Converting BTC to USD and performing additional transformations
+2024-06-15 15:24:08,633 [INFO] __main__: Data transformation complete.
+2024-06-15 15:24:08,633 [INFO] __main__:  876 rows & 15 columns.
+2024-06-15 15:24:08,633 [INFO] __main__: Loading data into data warehouse
+2024-06-15 15:24:08,633 [INFO] etl_process.load: Starting to write DataFrame to MotherDuck
+2024-06-15 15:24:49,612 [ERROR] etl_process.load: Error writing to MotherDuck: Invalid Input Error: Initialization function "motherduck_init" from file "/home/nerd/.duckdb/extensions/v0.10.2/linux_amd64_gcc4/motherduck.duckdb_extension" threw an exception: "Initialization function "motherduck_init" from file "/home/nerd/.duckdb/extensions/v0.10.2/linux_amd64_gcc4/motherduck.v0.10.2-2024-05-342.duckdb_extension" threw an exception: "Request failed: Jwt is not in the form of Header.Payload.Signature with two dots and 3 sections (UNAUTHENTICATED, RPC 'GET_WELCOME_PACK', request id: '81901c48-d477-4157-9811-5d1f7f025c1f')""
+2024-06-15 15:24:49,613 [INFO] __main__: Data successfully loaded into MotherDuck
+2024-06-15 15:24:49,613 [INFO] __main__: Pipeline completed successfully at 2024-06-15 15:24:49.613130.Total time: 0:01:56.527466
+2024-06-15 14:47:09,724 [INFO] etl_process.extract: Fetching BTC to USD rate from CoinCap API
+2024-06-15 14:47:09,727 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coincap.io:443
+2024-06-15 14:47:10,345 [DEBUG] urllib3.connectionpool: https://api.coincap.io:443 "GET /v2/rates/bitcoin HTTP/1.1" 200 None
+2024-06-15 14:47:10,346 [INFO] etl_process.extract: Successfully fetched BTC to USD rate: 66278.44
+2024-06-15 14:47:10,347 [INFO] __main__: Pipeline started at 2024-06-15 14:47:10.347354
+2024-06-15 14:47:10,347 [INFO] __main__: Fetching exchange data from CoinGecko API
+2024-06-15 14:47:10,347 [INFO] etl_process.extract: Starting to fetch data from https://api.coingecko.com/api/v3/exchanges with headers: {'accept': 'application/json', 'x-cg-pro-api-key': 'CG-e2wRRAdihEkAP6M4sLxu73N3'}
+2024-06-15 14:47:10,349 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 14:47:10,811 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=1 HTTP/1.1" 200 None
+2024-06-15 14:47:10,833 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=1 returned status: 200
+2024-06-15 14:47:10,834 [INFO] etl_process.extract: Fetched 100 records from page 1
+2024-06-15 14:47:10,834 [INFO] etl_process.extract: Proceeding to the next page: 2
+2024-06-15 14:47:11,840 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 14:47:12,323 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=2 HTTP/1.1" 400 None
+2024-06-15 14:47:12,333 [ERROR] etl_process.extract: HTTP error occurred: 400 Client Error: Bad Request for url: https://api.coingecko.com/api/v3/exchanges?per_page=100&page=2
+2024-06-15 14:47:12,336 [INFO] __main__: Fetched exchange data: 100 records
+2024-06-15 14:47:12,337 [INFO] __main__: Transforming exchange data
+2024-06-15 14:47:12,337 [INFO] etl_process.transform: Data fetched successfully from API.
+2024-06-15 14:47:12,349 [INFO] __main__: Transformed complete, table: 100 rows
+2024-06-15 14:47:12,349 [INFO] __main__: Converting BTC to USD and performing additional transformations
+2024-06-15 14:47:12,372 [INFO] __main__: Data transformation complete.
+2024-06-15 14:47:12,372 [INFO] __main__:  100 rows & 15 columns.
+2024-06-15 14:47:12,372 [INFO] __main__: Loading data into data warehouse
+2024-06-15 14:47:12,373 [INFO] etl_process.load: Starting to write DataFrame to MotherDuck
+2024-06-15 14:48:01,558 [DEBUG] etl_process.load: Executing SQL insert/update command
+2024-06-15 14:48:02,409 [INFO] __main__: Data successfully loaded into MotherDuck
+2024-06-15 14:48:02,410 [INFO] __main__: Pipeline completed successfully at 2024-06-15 14:48:02.410210.Total time: 0:00:52.062856
+2024-06-15 14:48:19,558 [INFO] etl_process.extract: Fetching BTC to USD rate from CoinCap API
+2024-06-15 14:48:19,561 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coincap.io:443
+2024-06-15 14:48:20,066 [DEBUG] urllib3.connectionpool: https://api.coincap.io:443 "GET /v2/rates/bitcoin HTTP/1.1" 200 None
+2024-06-15 14:48:20,068 [INFO] etl_process.extract: Successfully fetched BTC to USD rate: 66284.48
+2024-06-15 14:48:20,069 [INFO] __main__: Pipeline started at 2024-06-15 14:48:20.069744
+2024-06-15 14:48:20,070 [INFO] __main__: Fetching exchange data from CoinGecko API
+2024-06-15 14:48:20,070 [INFO] etl_process.extract: Starting to fetch data from https://api.coingecko.com/api/v3/exchanges with headers: {'accept': 'application/json', 'x-cg-pro-api-key': 'CG-e2wRRAdihEkAP6M4sLxu73N3'}
+2024-06-15 14:48:20,074 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 14:48:20,627 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=1 HTTP/1.1" 400 None
+2024-06-15 14:48:20,633 [ERROR] etl_process.extract: HTTP error occurred: 400 Client Error: Bad Request for url: https://api.coingecko.com/api/v3/exchanges?per_page=100&page=1
+2024-06-15 14:48:20,634 [INFO] __main__: Fetched exchange data: 0 records
+2024-06-15 14:48:20,635 [INFO] __main__: Transforming exchange data
+2024-06-15 14:48:20,637 [INFO] etl_process.transform: Data fetched successfully from API.
+2024-06-15 14:48:20,644 [INFO] __main__: Transformed complete, table: 0 rows
+2024-06-15 14:48:20,645 [INFO] __main__: Converting BTC to USD and performing additional transformations
+2024-06-15 14:48:20,646 [ERROR] __main__: Error running pipeline: 'trade_vol_24h_btc'
+2024-06-15 14:48:48,844 [INFO] etl_process.extract: Fetching BTC to USD rate from CoinCap API
+2024-06-15 14:48:48,847 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coincap.io:443
+2024-06-15 14:48:49,332 [DEBUG] urllib3.connectionpool: https://api.coincap.io:443 "GET /v2/rates/bitcoin HTTP/1.1" 200 None
+2024-06-15 14:48:49,334 [INFO] etl_process.extract: Successfully fetched BTC to USD rate: 66282.27
+2024-06-15 14:48:49,335 [INFO] __main__: Pipeline started at 2024-06-15 14:48:49.335591
+2024-06-15 14:48:49,336 [INFO] __main__: Fetching exchange data from CoinGecko API
+2024-06-15 14:48:49,336 [INFO] etl_process.extract: Starting to fetch data from https://api.coingecko.com/api/v3/exchanges with headers: {'accept': 'application/json', 'x-cg-pro-api-key': 'CG-e2wRRAdihEkAP6M4sLxu73N3'}
+2024-06-15 14:48:49,340 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 14:48:49,858 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=1 HTTP/1.1" 400 None
+2024-06-15 14:48:49,865 [ERROR] etl_process.extract: HTTP error occurred: 400 Client Error: Bad Request for url: https://api.coingecko.com/api/v3/exchanges?per_page=100&page=1
+2024-06-15 14:48:49,867 [INFO] __main__: Fetched exchange data: 0 records
+2024-06-15 14:48:49,868 [INFO] __main__: Transforming exchange data
+2024-06-15 14:48:49,869 [INFO] etl_process.transform: Data fetched successfully from API.
+2024-06-15 14:48:49,877 [INFO] __main__: Transformed complete, table: 0 rows
+2024-06-15 14:48:49,878 [INFO] __main__: Converting BTC to USD and performing additional transformations
+2024-06-15 14:48:49,878 [ERROR] __main__: Error running pipeline: 'trade_vol_24h_btc'
+2024-06-15 14:49:08,448 [INFO] etl_process.extract: Fetching BTC to USD rate from CoinCap API
+2024-06-15 14:49:08,452 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coincap.io:443
+2024-06-15 14:49:08,980 [DEBUG] urllib3.connectionpool: https://api.coincap.io:443 "GET /v2/rates/bitcoin HTTP/1.1" 200 None
+2024-06-15 14:49:08,981 [INFO] etl_process.extract: Successfully fetched BTC to USD rate: 66282.85
+2024-06-15 14:49:08,981 [INFO] __main__: Pipeline started at 2024-06-15 14:49:08.981735
+2024-06-15 14:49:08,982 [INFO] __main__: Fetching exchange data from CoinGecko API
+2024-06-15 14:49:08,982 [INFO] etl_process.extract: Starting to fetch data from https://api.coingecko.com/api/v3/exchanges with headers: {'accept': 'application/json', 'x-cg-pro-api-key': 'CG-e2wRRAdihEkAP6M4sLxu73N3'}
+2024-06-15 14:49:08,983 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 14:49:09,476 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=1 HTTP/1.1" 400 None
+2024-06-15 14:49:09,477 [ERROR] etl_process.extract: HTTP error occurred: 400 Client Error: Bad Request for url: https://api.coingecko.com/api/v3/exchanges?per_page=100&page=1
+2024-06-15 14:49:09,477 [INFO] __main__: Fetched exchange data: 0 records
+2024-06-15 14:49:09,478 [INFO] __main__: Transforming exchange data
+2024-06-15 14:49:09,478 [INFO] etl_process.transform: Data fetched successfully from API.
+2024-06-15 14:49:09,479 [INFO] __main__: Transformed complete, table: 0 rows
+2024-06-15 14:49:09,480 [INFO] __main__: Converting BTC to USD and performing additional transformations
+2024-06-15 14:49:09,480 [ERROR] __main__: Error running pipeline: 'trade_vol_24h_btc'
+2024-06-15 16:30:04,795 [INFO] etl_process.extract: Fetching BTC to USD rate from CoinCap API
+2024-06-15 16:30:04,797 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coincap.io:443
+2024-06-15 16:30:05,405 [DEBUG] urllib3.connectionpool: https://api.coincap.io:443 "GET /v2/rates/bitcoin HTTP/1.1" 200 None
+2024-06-15 16:30:05,407 [INFO] etl_process.extract: Successfully fetched BTC to USD rate: 66281.28
+2024-06-15 16:30:05,408 [INFO] __main__: Pipeline started at 2024-06-15 16:30:05.408606
+2024-06-15 16:30:05,408 [INFO] __main__: Fetching exchange data from CoinGecko API
+2024-06-15 16:30:05,408 [INFO] etl_process.extract: Starting to fetch data from https://api.coingecko.com/api/v3/exchanges with headers: {'accept': 'application/json', 'x-cg-pro-api-key': 'CG-e2wRRAdihEkAP6M4sLxu73N3'}
+2024-06-15 16:30:05,410 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 16:30:05,909 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=1 HTTP/1.1" 200 None
+2024-06-15 16:30:05,926 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=1 returned status: 200
+2024-06-15 16:30:05,931 [INFO] etl_process.extract: Fetched 100 records from page 1
+2024-06-15 16:30:05,932 [INFO] etl_process.extract: Proceeding to the next page: 2
+2024-06-15 16:30:06,936 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 16:30:07,431 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=2 HTTP/1.1" 400 None
+2024-06-15 16:30:07,435 [ERROR] etl_process.extract: HTTP error occurred: 400 Client Error: Bad Request for url: https://api.coingecko.com/api/v3/exchanges?per_page=100&page=2
+2024-06-15 16:30:07,436 [INFO] __main__: Fetched exchange data: 100 records
+2024-06-15 16:30:07,436 [INFO] __main__: Transforming exchange data
+2024-06-15 16:30:07,436 [INFO] etl_process.transform: Data fetched successfully from API.
+2024-06-15 16:30:07,448 [INFO] __main__: Transformed complete, table: 100 rows
+2024-06-15 16:30:07,448 [INFO] __main__: Converting BTC to USD and performing additional transformations
+2024-06-15 16:30:07,468 [INFO] __main__: Data transformation complete.
+2024-06-15 16:30:07,468 [INFO] __main__:  100 rows & 15 columns.
+2024-06-15 16:30:07,468 [INFO] __main__: Loading data into data warehouse
+2024-06-15 16:30:07,468 [INFO] etl_process.load: Starting to write DataFrame to MotherDuck
+2024-06-15 16:31:43,680 [DEBUG] etl_process.load: Executing SQL insert/update command
+2024-06-15 16:31:44,490 [INFO] __main__: Data successfully loaded into MotherDuck
+2024-06-15 16:31:44,491 [INFO] __main__: Pipeline completed successfully at 2024-06-15 16:31:44.491282.Total time: 0:01:39.082676
+2024-06-15 16:32:32,673 [INFO] etl_process.extract: Fetching BTC to USD rate from CoinCap API
+2024-06-15 16:32:32,675 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coincap.io:443
+2024-06-15 16:32:33,391 [DEBUG] urllib3.connectionpool: https://api.coincap.io:443 "GET /v2/rates/bitcoin HTTP/1.1" 200 None
+2024-06-15 16:32:33,392 [INFO] etl_process.extract: Successfully fetched BTC to USD rate: 66277.58
+2024-06-15 16:32:33,392 [INFO] __main__: Pipeline started at 2024-06-15 16:32:33.392794
+2024-06-15 16:32:33,393 [INFO] __main__: Fetching exchange data from CoinGecko API
+2024-06-15 16:32:33,393 [INFO] etl_process.extract: Starting to fetch data from https://api.coingecko.com/api/v3/exchanges with headers: {'accept': 'application/json', 'x-cg-pro-api-key': 'CG-e2wRRAdihEkAP6M4sLxu73N3'}
+2024-06-15 16:32:33,394 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 16:32:34,093 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=1 HTTP/1.1" 200 None
+2024-06-15 16:32:34,115 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=1 returned status: 200
+2024-06-15 16:32:34,116 [INFO] etl_process.extract: Fetched 100 records from page 1
+2024-06-15 16:32:34,117 [INFO] etl_process.extract: Proceeding to the next page: 2
+2024-06-15 16:32:35,120 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-15 16:32:35,645 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=2 HTTP/1.1" 400 None
+2024-06-15 16:32:35,651 [ERROR] etl_process.extract: HTTP error occurred: 400 Client Error: Bad Request for url: https://api.coingecko.com/api/v3/exchanges?per_page=100&page=2
+2024-06-15 16:32:35,653 [INFO] __main__: Fetched exchange data: 100 records
+2024-06-15 16:32:35,653 [INFO] __main__: Transforming exchange data
+2024-06-15 16:32:35,654 [INFO] etl_process.transform: Data fetched successfully from API.
+2024-06-15 16:32:35,667 [INFO] __main__: Transformed complete, table: 100 rows
+2024-06-15 16:32:35,668 [INFO] __main__: Converting BTC to USD and performing additional transformations
+2024-06-15 16:32:35,688 [INFO] __main__: Data transformation complete.
+2024-06-15 16:32:35,688 [INFO] __main__:  100 rows & 15 columns.
+2024-06-15 16:32:35,688 [INFO] __main__: Loading data into data warehouse
+2024-06-15 16:32:35,688 [INFO] etl_process.load: Starting to write DataFrame to MotherDuck
+2024-06-15 16:36:26,032 [DEBUG] etl_process.load: Executing SQL insert/update command
+2024-06-15 16:36:26,920 [INFO] __main__: Data successfully loaded into MotherDuck
+2024-06-15 16:36:26,920 [INFO] __main__: Pipeline completed successfully at 2024-06-15 16:36:26.920466.Total time: 0:03:53.527672
+2024-06-17 22:33:07,625 [INFO] etl_process.extract: Fetching BTC to USD rate from CoinCap API
+2024-06-17 22:33:07,639 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coincap.io:443
+2024-06-17 22:33:08,370 [DEBUG] urllib3.connectionpool: https://api.coincap.io:443 "GET /v2/rates/bitcoin HTTP/11" 200 None
+2024-06-17 22:33:08,371 [INFO] etl_process.extract: Successfully fetched BTC to USD rate: 66539.12
+2024-06-17 22:33:08,372 [INFO] __main__: Pipeline started at 2024-06-17 22:33:08.371942
+2024-06-17 22:33:08,372 [INFO] __main__: Fetching exchange data from CoinGecko API
+2024-06-17 22:33:08,372 [INFO] etl_process.extract: Starting to fetch data from https://api.coingecko.com/api/v3/exchanges with headers: {'accept': 'application/json', 'x-cg-pro-api-key': 'CG-e2wRRAdihEkAP6M4sLxu73N3'}
+2024-06-17 22:33:08,373 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-17 22:33:08,849 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=1 HTTP/11" 200 None
+2024-06-17 22:33:08,857 [INFO] etl_process.extract: API request to https://api.coingecko.com/api/v3/exchanges?per_page=100&page=1 returned status: 200
+2024-06-17 22:33:08,858 [INFO] etl_process.extract: Fetched 100 records from page 1
+2024-06-17 22:33:08,858 [INFO] etl_process.extract: Proceeding to the next page: 2
+2024-06-17 22:33:09,865 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-17 22:33:10,411 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=2 HTTP/11" 400 None
+2024-06-17 22:33:10,413 [ERROR] etl_process.extract: HTTP error occurred: 400 Client Error: Bad Request for url: https://api.coingecko.com/api/v3/exchanges?per_page=100&page=2
+2024-06-17 22:33:10,419 [INFO] __main__: Fetched exchange data: 100 records
+2024-06-17 22:33:10,420 [INFO] __main__: Transforming exchange data
+2024-06-17 22:33:10,425 [INFO] etl_process.transform: Data fetched successfully from API.
+2024-06-17 22:33:10,428 [INFO] __main__: Transformed complete, table: 100 rows
+2024-06-17 22:33:10,428 [INFO] __main__: Converting BTC to USD and performing additional transformations
+2024-06-17 22:33:10,455 [INFO] __main__: Data transformation complete.
+2024-06-17 22:33:10,455 [INFO] __main__:  100 rows & 15 columns.
+2024-06-17 22:33:10,456 [INFO] __main__: Loading data into data warehouse
+2024-06-17 22:33:10,456 [INFO] etl_process.load: Starting to write DataFrame to MotherDuck
+2024-06-17 22:34:47,530 [DEBUG] etl_process.load: Executing SQL insert/update command
+2024-06-17 22:34:49,045 [INFO] __main__: Data successfully loaded into MotherDuck
+2024-06-17 22:34:49,045 [INFO] __main__: Pipeline completed successfully at 2024-06-17 22:34:49.045935.Total time: 0:01:40.673993
