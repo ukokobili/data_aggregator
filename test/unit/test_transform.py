@@ -1,10 +1,11 @@
 import os
 import sys
-import requests
 import pytest
+import datetime
 
 sys.path.append('./scripts')
-from etl_process.transform import get_exchange_data, data_transformation
+from etl_process.extract import get_exchange_data, btc_to_usd_rate
+from etl_process.transform import loop_through_api, data_transformation
 
 API_KEY = os.getenv('API_KEY')
 
@@ -17,9 +18,10 @@ headers = {
 
 @pytest.fixture
 def get_response():
-    result = get_exchange_data(url, headers)
-    return result
-
+    api_data = get_exchange_data(url, headers)
+    dict_data = loop_through_api(api_data)
+    transform_data = data_transformation(dict_data, btc_to_usd_rate)
+    return transform_data
 
 @pytest.mark.parametrize(
     "column_name, expected_type",
@@ -38,26 +40,25 @@ def get_response():
         ("trade_vol_24h_usd", float),
         ("trade_vol_24h_usd_normalized", float),
         ("age_of_exchange", int),
-        ("ingested_at", )
+        ("ingested_at", datetime.datetime)  # Use datetime.datetime here
 
     ],
 )
-def test_dataframe_dtypes(column_name, expected_type):
-  """
-  Parametrized test to check data types in each column.
+def test_dataframe_dtypes(get_response, column_name, expected_type):
+    """
+    Parametrized test to check data types in each column.
 
-  Args:
-      column_name (str): Name of the column to test.
-      expected_type (type): Expected data type for the column.
-  """
-  df = get_response()
-  assert df[column_name].dtype == expected_type, f"Column '{column_name}' has incorrect data type!"
+    Args:
+        column_name (str): Name of the column to test.
+        expected_type (type): Expected data type for the column.
+    """
+    df = get_response
+    assert df[column_name].dtype == expected_type, f"Column '{column_name}' has incorrect data type!"
 
-
-def test_dataframe_missing_values():
-  """
-  Test to check for missing values (NaN or None) in the DataFrame.
-  """
-  df = get_response()
-  assert df.isnull().sum().sum() > 0, "No missing values found in the DataFrame!"
-  # You can add further assertions to check for missing values in specific columns if needed.
+def test_dataframe_missing_values(get_response):
+    """
+    Test to check for missing values (NaN or None) in the DataFrame.
+    """
+    df = get_response
+    assert df.isnull().sum().sum() == 0, "Missing values found in the DataFrame!"
+    # You can add further assertions to check for missing values in specific columns if needed.
