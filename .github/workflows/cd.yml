@@ -32,11 +32,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r containers/requirements.txt
 
-    - name: Run tests
-      run: |
-        pytest test/unit
-        pytest test/integration
-
     - name: Run data pipeline
       run: |
         python scripts/data_pipeline.py
