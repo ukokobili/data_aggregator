@@ -1,19 +1,17 @@
 import os
 import sys
+
 import pytest
-import requests
 
-sys.path.append('./scripts')
-from etl_process.extract import get_exchange_data
+sys.path.append("./scripts")
+from etl_process.extract import get_exchange_data  # noqa
 
-API_KEY = os.getenv('API_KEY')
+API_KEY = os.getenv("API_KEY")
 
 # API URL and API KEY authentication
-url = 'https://api.coingecko.com/api/v3/exchanges'
-headers = {
-    'accept': 'application/json',
-    'x-cg-pro-api-key': API_KEY
-}
+url = "https://api.coingecko.com/api/v3/exchanges"
+headers = {"accept": "application/json", "x-cg-pro-api-key": API_KEY}
+
 
 @pytest.fixture
 def api_response():
@@ -27,29 +25,32 @@ def api_response():
 #     # Assert list is not empty
 #     assert len(api_response) > 0, "API returned an empty list!"
 
+
 def test_api_returns_expected_data(api_response):
-  """
-  Test to check if the API response contains data for specific exchanges.
+    """
+    Test to check if the API response contains data for specific exchanges.
 
-  Args:
-    api_response (list): The data returned from the API.
-  """
-  # Define expected exchange IDs
-  expected_ids = ['binance',
-                 'bybit_spot',
-                 'huobi',
-                 'gdax',
-                 'gate',
-                 'kucoin',
-                 'kraken',
-                 'bitfinex',
-                 'hashkey-global',
-                 'hashkey_exchange',
-                'binance_us']
+    Args:
+      api_response (list): The data returned from the API.
+    """
+    # Define expected exchange IDs
+    expected_ids = [
+        "binance",
+        "bybit_spot",
+        "huobi",
+        "gdax",
+        "gate",
+        "kucoin",
+        "kraken",
+        "bitfinex",
+        "hashkey-global",
+        "hashkey_exchange",
+        "binance_us",
+    ]
 
-  # Check if any exchange in the response has an ID in the expected list
-  found_expected = any(
-     exchange["id"] in expected_ids for exchange in api_response)
+    # Check if any exchange in the response has an ID in the expected list
+    found_expected = any(
+        exchange["id"] in expected_ids for exchange in api_response
+    )
 
-  assert found_expected, "API response doesn't contain data for expected exchanges!"
-
+    assert found_expected, "API doesn't contain data for expected exchanges!"
