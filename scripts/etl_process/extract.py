@@ -35,8 +35,8 @@ def get_exchange_data(url: str, headers: Dict[str, str]) -> List[Dict]:
 
     while True:
         try:
-            paginated_url = f"{url}?per_page={limit}&page={page}"
-            response = requests.get(paginated_url, headers=headers)
+            params = {'per_page': limit, 'page': page}
+            response = requests.get(url, headers=headers, params=params)
             response.raise_for_status()  # Raise an HTTPError for bad responses
             logger.info(f"API request returned status: {response.status_code}")
 

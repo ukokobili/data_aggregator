@@ -1,15 +1,14 @@
-import logging
 import os
 import sys
+import logging
 from datetime import datetime
-
-from etl_process.extract import btc_to_usd_rate, get_exchange_data
+from etl_process.extract import get_exchange_data, btc_to_usd_rate
+from etl_process.transform import loop_through_api, data_transformation
 from etl_process.load import write_to_motherduck_from_data_frame
-from etl_process.transform import data_transformation, loop_through_api
 
-API_KEY = os.getenv("API_KEY")
+API_KEY = os.getenv('API_KEY')
 
-sys.path.insert(0, "./logs/")
+sys.path.insert(0, './logs/')
 from config import log_config  # noqa
 
 log_config()
@@ -18,15 +17,16 @@ log_config()
 logger = logging.getLogger(__name__)
 
 # API URL and API KEY authentication
-url = "https://api.coingecko.com/api/v3/exchanges"
-headers = {"accept": "application/json", "x-cg-pro-api-key": API_KEY}
-
+url = 'https://api.coingecko.com/api/v3/exchanges'
+headers = {
+    'accept': 'application/json',
+    'x-cg-pro-api-key': API_KEY
+}
 
 def run_pipeline() -> None:
     """
     Run the entire ETL pipeline: extraction, transformation, and loading.
-    This function fetches exchange data from the CoinGecko API,
-    transforms the data,
+    This function fetches exchange data from the CoinGecko API, transforms the data,
     converts BTC to USD, and loads the cleaned data into a data warehouse.
 
     Args:
@@ -38,7 +38,7 @@ def run_pipeline() -> None:
     try:
         # Pipeline start time
         pipeline_start_time = datetime.now()
-        logger.info(f"Pipeline started at {pipeline_start_time}")
+        logger.info(f'Pipeline started at {pipeline_start_time}')
 
         # Fetch exchange data from CoinGecko API
         logger.info("Fetching exchange data from CoinGecko API")
@@ -49,19 +49,18 @@ def run_pipeline() -> None:
         logger.info("Transforming exchange data")
         structured_data = loop_through_api(exchange_data)
         logger.info(
-            f"Transformed complete, table: {structured_data.shape[0]} rows"
-        )
+            f"Transformed complete, table: {structured_data.shape[0]} rows")
 
         # Convert BTC to USD, convert datatypes, add additional columns
         logger.info(
-            "Converting BTC to USD and performing additional transformations"
-        )
+            "Converting BTC to USD and performing additional transformations")
         btc_rate = btc_to_usd_rate()  # Moved inside the function
         cleaned_data = data_transformation(structured_data, btc_rate)
         logger.info("Data transformation complete.")
         logger.info(
-            f" {cleaned_data.shape[0]} rows & {cleaned_data.shape[1]} columns."
-        )
+        f" {cleaned_data.shape[0]} rows & {cleaned_data.shape[1]} columns.")
+
+        cleaned_data.to_csv('coingeko_dataset.csv', index=False)
 
         # Load data into data warehouse
         logger.info("Loading data into data warehouse")
@@ -70,13 +69,12 @@ def run_pipeline() -> None:
 
         pipeline_end_time = datetime.now()
         logger.info(
-            f"Pipeline completed successfully at {pipeline_end_time}."
-            f"Total time: {pipeline_end_time - pipeline_start_time}"
+            f'Pipeline completed successfully at {pipeline_end_time}.'
+            f'Total time: {pipeline_end_time - pipeline_start_time}'
         )
-
     except Exception as err:
-        logger.error(f"Error running pipeline: {err}")
+        logger.error(f'Error running pipeline: {err}')
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     run_pipeline()
+    logging.shutdown()

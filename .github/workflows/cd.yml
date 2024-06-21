@@ -3,16 +3,14 @@ on:
   push:
     branches:
       - main
-
   schedule:
-    # Scheduled to run at 00:00 UTC daily
-    - cron: '15 * * * *'
+    # Scheduled to run every 10 minutes
+    - cron: '*/10 * * * *'
 
 env:
-    MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
-    API_KEY: ${{secrets.API_KEY}}
-    DATABASE_NAME: ${{secrets.DATABASE_NAME}}
-
+  MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
+  API_KEY: ${{secrets.API_KEY}}
+  DATABASE_NAME: ${{secrets.DATABASE_NAME}}
 
 jobs:
   build:
@@ -35,3 +33,7 @@ jobs:
     - name: Run data pipeline
       run: |
         python scripts/data_pipeline.py
+
+    - name: Display logs
+      run: |
+        cat logs/pipeline_logs.log
