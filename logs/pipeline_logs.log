@@ -1,0 +1,20 @@
+2024-06-21 18:17:21,042 [INFO] data_pipeline: Pipeline started at 2024-06-21 18:17:21.041994
+2024-06-21 18:17:21,042 [INFO] data_pipeline: Fetching exchange data from CoinGecko API
+2024-06-21 18:17:21,042 [INFO] data_pipeline: Fetched exchange data: 4 records
+2024-06-21 18:17:21,042 [INFO] data_pipeline: Transforming exchange data
+2024-06-21 18:17:21,042 [INFO] data_pipeline: Transformed complete, table: 1 rows
+2024-06-21 18:17:21,043 [INFO] data_pipeline: Converting BTC to USD and performing additional transformations
+2024-06-21 18:17:21,043 [INFO] data_pipeline: Data transformation complete.
+2024-06-21 18:17:21,043 [INFO] data_pipeline:  1 rows & 15 columns.
+2024-06-21 18:17:21,044 [INFO] data_pipeline: Loading data into data warehouse
+2024-06-21 18:17:21,047 [INFO] data_pipeline: Data successfully loaded into MotherDuck
+2024-06-21 18:17:21,048 [INFO] data_pipeline: Pipeline completed successfully at 2024-06-21 18:17:21.048219.Total time: 0:00:00.006225
+2024-06-21 18:17:21,067 [INFO] etl_process.extract: Starting to fetch data from https://api.coingecko.com/api/v3/exchanges with headers: {'accept': 'application/json', 'x-cg-pro-api-key': 'CG-e2wRRAdihEkAP6M4sLxu73N3'}
+2024-06-21 18:17:21,074 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-21 18:17:21,675 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=1 HTTP/11" 200 None
+2024-06-21 18:17:21,679 [INFO] etl_process.extract: API request returned status: 200
+2024-06-21 18:17:21,681 [INFO] etl_process.extract: Fetched 100 records from page 1
+2024-06-21 18:17:21,682 [INFO] etl_process.extract: Proceeding to the next page: 2
+2024-06-21 18:17:22,685 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): api.coingecko.com:443
+2024-06-21 18:17:23,251 [DEBUG] urllib3.connectionpool: https://api.coingecko.com:443 "GET /api/v3/exchanges?per_page=100&page=2 HTTP/11" 400 None
+2024-06-21 18:17:23,255 [ERROR] etl_process.extract: HTTP error occurred: 400 Client Error: Bad Request for url: https://api.coingecko.com/api/v3/exchanges?per_page=100&page=2

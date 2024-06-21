@@ -1,10 +1,11 @@
+import logging
 import os
 import sys
-import logging
 from datetime import datetime
-from etl_process.extract import get_exchange_data, btc_to_usd_rate
-from etl_process.transform import loop_through_api, data_transformation
+
+from etl_process.extract import btc_to_usd_rate, get_exchange_data
 from etl_process.load import write_to_motherduck_from_data_frame
+from etl_process.transform import data_transformation, loop_through_api
 
 API_KEY = os.getenv('API_KEY')
 
@@ -18,16 +19,15 @@ logger = logging.getLogger(__name__)
 
 # API URL and API KEY authentication
 url = 'https://api.coingecko.com/api/v3/exchanges'
-headers = {
-    'accept': 'application/json',
-    'x-cg-pro-api-key': API_KEY
-}
+headers = {'accept': 'application/json', 'x-cg-pro-api-key': API_KEY}
+
 
 def run_pipeline() -> None:
     """
     Run the entire ETL pipeline: extraction, transformation, and loading.
-    This function fetches exchange data from the CoinGecko API, transforms the data,
-    converts BTC to USD, and loads the cleaned data into a data warehouse.
+    This function fetches exchange data from the CoinGecko API,
+    transforms the data, converts BTC to USD, and loads the
+    cleaned data into a data warehouse.
 
     Args:
         None
@@ -49,16 +49,19 @@ def run_pipeline() -> None:
         logger.info("Transforming exchange data")
         structured_data = loop_through_api(exchange_data)
         logger.info(
-            f"Transformed complete, table: {structured_data.shape[0]} rows")
+            f"Transformed complete, table: {structured_data.shape[0]} rows"
+        )
 
         # Convert BTC to USD, convert datatypes, add additional columns
         logger.info(
-            "Converting BTC to USD and performing additional transformations")
+            "Converting BTC to USD and performing additional transformations"
+        )
         btc_rate = btc_to_usd_rate()  # Moved inside the function
         cleaned_data = data_transformation(structured_data, btc_rate)
         logger.info("Data transformation complete.")
         logger.info(
-        f" {cleaned_data.shape[0]} rows & {cleaned_data.shape[1]} columns.")
+            f" {cleaned_data.shape[0]} rows & {cleaned_data.shape[1]} columns."
+        )
 
         cleaned_data.to_csv('coingeko_dataset.csv', index=False)
 
@@ -74,6 +77,7 @@ def run_pipeline() -> None:
         )
     except Exception as err:
         logger.error(f'Error running pipeline: {err}')
+
 
 if __name__ == '__main__':
     run_pipeline()
