@@ -1,0 +1,42 @@
+name: CD
+on:
+  push:
+    branches:
+      - main
+
+  schedule:
+    # Scheduled to run at 00:00 UTC daily
+    - cron: '15 * * * *'
+
+env:
+    MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
+    API_KEY: ${{secrets.API_KEY}}
+    DATABASE_NAME: ${{secrets.DATABASE_NAME}}
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r containers/requirements.txt
+
+    - name: Run tests
+      run: |
+        pytest test/unit
+        pytest test/integration
+
+    - name: Run data pipeline
+      run: |
+        python scripts/data_pipeline.py
