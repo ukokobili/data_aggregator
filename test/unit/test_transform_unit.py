@@ -47,12 +47,13 @@
 #         expected_type (type): Expected data type for the column.
 #     """
 #     df = get_response
-#     assert df[column_name].dtype == expected_type, f"Column '{column_name}' has incorrect data type!"
+#     assert df[column_name].dtype == expected_type,
+#     f"Column '{column_name}' has incorrect data type!"
 
 # def test_dataframe_missing_values(get_response):
 #     """
 #     Test to check for missing values (NaN or None) in the DataFrame.
 #     """
 #     df = get_response
-#     assert df.isnull().sum().sum() == 0, "Missing values found in the DataFrame!"
-#     # You can add further assertions to check for missing values in specific columns if needed.
+#     assert df.isnull().sum().sum() == 0,
+#     "Missing values found in the DataFrame!"

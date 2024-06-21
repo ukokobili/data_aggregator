@@ -1,8 +1,9 @@
-import sys
 import logging
-import requests
+import sys
 import time
 from typing import Dict, List
+
+import requests
 
 # Import the config package
 sys.path.insert(0, "./logs/")
@@ -37,9 +38,7 @@ def get_exchange_data(url: str, headers: Dict[str, str]) -> List[Dict]:
             paginated_url = f"{url}?per_page={limit}&page={page}"
             response = requests.get(paginated_url, headers=headers)
             response.raise_for_status()  # Raise an HTTPError for bad responses
-            logger.info(
-                f"API request to {paginated_url} returned status: {response.status_code}"
-            )
+            logger.info(f"API request returned status: {response.status_code}")
 
             data = response.json()
             all_data.extend(data)
@@ -56,7 +55,9 @@ def get_exchange_data(url: str, headers: Dict[str, str]) -> List[Dict]:
 
         except requests.exceptions.HTTPError as http_err:
             if response.status_code == 429:
-                logger.warning("Rate limit exceeded. Retrying after a delay...")
+                logger.warning(
+                    "Rate limit exceeded. Retrying after a delay..."
+                )
                 time.sleep(60)  # Delay for 60 seconds before retrying
                 continue
             logger.error(f"HTTP error occurred: {http_err}")
@@ -82,9 +83,11 @@ def btc_to_usd_rate() -> float:
         logger.info(f"Successfully fetched BTC to USD rate: {rate}")
         return rate
     except requests.exceptions.HTTPError as http_err:
-        logger.error(f"HTTP error occurred while fetching BTC to USD rate: {http_err}")
+        logger.error(
+            f"HTTP error occurred while fetching BTC to USD rate: {http_err}"
+        )
     except Exception as err:
         logger.error(
-            f"An unexpected error occurred while fetching BTC to USD rate: {err}"
+            f"An unexpected error occurred fetching BTC to USD rate: {err}"
         )
     return 0.0  # Return a default value in case of error

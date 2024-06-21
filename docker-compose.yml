@@ -10,3 +10,4 @@ services:
     working_dir: /code
     env_file: 
       - .env
+    command: tail -f /dev/null  # This keeps the container running
