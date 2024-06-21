@@ -23,8 +23,6 @@ headers = {
     'x-cg-pro-api-key': API_KEY
 }
 
-btc_rate = btc_to_usd_rate()
-
 def run_pipeline() -> None:
     """
     Run the entire ETL pipeline: extraction, transformation, and loading.
@@ -56,11 +54,11 @@ def run_pipeline() -> None:
         # Convert BTC to USD, convert datatypes, add additional columns
         logger.info(
             "Converting BTC to USD and performing additional transformations")
+        btc_rate = btc_to_usd_rate()  # Moved inside the function
         cleaned_data = data_transformation(structured_data, btc_rate)
         logger.info("Data transformation complete.")
         logger.info(
         f" {cleaned_data.shape[0]} rows & {cleaned_data.shape[1]} columns.")
-                    
 
         # Load data into data warehouse
         logger.info("Loading data into data warehouse")
