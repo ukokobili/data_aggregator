@@ -2,15 +2,15 @@
 # Build and spin up Docker container
 
 docker-build: 
-	docker-compose build
+	docker compose --env-file env up --build -d
 
 sleeper:
 	sleep 15
 
-docker-run:
-	docker-compose up -d
+down: 
+	docker compose --env-file env down
 
-docker: docker-build sleeper docker-run
+up: docker-build sleeper 
 
 shell:
 	docker exec -ti etl_pipeline bash

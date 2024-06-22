@@ -63,7 +63,7 @@ def run_pipeline() -> None:
             f" {cleaned_data.shape[0]} rows & {cleaned_data.shape[1]} columns."
         )
 
-        cleaned_data.to_csv('coingeko_dataset.csv', index=False)
+        #cleaned_data.to_csv('coingeko_dataset.csv', index=False)
 
         # Load data into data warehouse
         logger.info("Loading data into data warehouse")
