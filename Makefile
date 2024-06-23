@@ -2,7 +2,7 @@
 # Build and spin up Docker container
 
 docker-build: 
-	docker-compose build
+	docker-compose --env-file env up --build -d
 
 sleeper:
 	sleep 15
@@ -10,10 +10,13 @@ sleeper:
 docker-run:
 	docker-compose up -d
 
-docker: docker-build sleeper docker-run
+docker: docker-build sleeper 
 
 shell:
-	docker exec -ti etl_pipeline bash
+	docker exec -ti etl_pipeline sh
+
+down:
+	docker compose --env-file env down
 
 format:
 	docker exec etl_pipeline python -m black -S --line-length 79 .
