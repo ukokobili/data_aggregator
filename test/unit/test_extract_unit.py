@@ -10,7 +10,7 @@ API_KEY = os.getenv("API_KEY")
 
 # API URL and API KEY authentication
 url = "https://api.coingecko.com/api/v3/exchanges"
-headers = {"accept": "application/json", "x-cg-pro-api-key": API_KEY}
+headers = {"accept": "application/json", "x-cg-demo-api-key": API_KEY}
 
 
 @pytest.fixture

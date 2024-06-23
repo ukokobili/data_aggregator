@@ -7,8 +7,6 @@ from etl_process.extract import btc_to_usd_rate, get_exchange_data
 from etl_process.load import write_to_motherduck_from_data_frame
 from etl_process.transform import data_transformation, loop_through_api
 
-API_KEY = os.getenv('API_KEY')
-
 sys.path.insert(0, './logs/')
 from config import log_config  # noqa
 
@@ -17,9 +15,19 @@ log_config()
 # Logger for the current module (__name__)
 logger = logging.getLogger(__name__)
 
+API_KEY = os.getenv('API_KEY')
+
+# Log the result of the API_KEY retrieval
+if API_KEY:
+    logging.info("API key successfully retrieved.")
+else:
+    logging.warning(
+        "API key not found. Please set the 'API_KEY' environment variable."
+    )
+
 # API URL and API KEY authentication
 url = 'https://api.coingecko.com/api/v3/exchanges'
-headers = {'accept': 'application/json', 'x-cg-pro-api-key': API_KEY}
+headers = {'accept': 'application/json', 'x-cg-demo-api-key': API_KEY}
 
 
 def run_pipeline() -> None:
