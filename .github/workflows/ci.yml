@@ -10,3 +10,5 @@ jobs:
         run: make docker
       - name: Run CI test
         run: make ci
+      - name: Stop containers
+        run: make down

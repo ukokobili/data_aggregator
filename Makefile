@@ -7,9 +7,6 @@ docker-build:
 sleeper:
 	sleep 15
 
-docker-run:
-	docker-compose up -d
-
 docker: docker-build sleeper 
 
 shell:
