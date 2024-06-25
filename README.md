@@ -15,9 +15,11 @@ This project implements an automated modular ETL pipeline for analyzing cryptocu
 
 ### Data Visualization
 ![](https://github.com/ukokobili/data_aggregator/blob/main/media/cryptocurrency-exchange-metrics-dashboard-2024-06-25T08-12-48.937Z.jpg)
+Link to the [dashboard](https://72d942e4.us2a.app.preset.io/superset/dashboard/11/?native_filters_key=JlibyibgI1CkzkytVkRmaN-BaqIczQYgDgtAjGJYfA2k_mghRWWcMfrtkThzbTuQ)
+
 ### Data Architecture
-![](https://github.com/ukokobili/data_aggregator/blob/main/media/exchange_architecture.jpg)
 The architecture was chosen to ensure scalability, maintainability, and performance. Docker is used to containerize the application, making it easy to deploy and manage dependencies. The data pipeline is built with modularity in mind, separating extraction, transformation, and loading processes. Data is stored in the Motherduck data warehouse, and logging is implemented for monitoring and debugging.
+![](https://github.com/ukokobili/data_aggregator/blob/main/media/exchange_architecture.jpg)
 
 ## Prerequisites
 
