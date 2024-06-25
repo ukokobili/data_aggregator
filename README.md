@@ -7,7 +7,7 @@
    - [Data Architecture](#data-architecture)
 2. [Prerequisites](#prerequisites)
 3. [How to Run This Project](#how-to-run-this-project)
-4. [Lessons Learned](#lessons-learned)
+4. [Future Work](#future-work)
 5. [Contact](#contact)
 
 ## Overview
@@ -38,10 +38,12 @@ Clone the repository and navigate to the project directory.
 git clone https://github.com/ukokobili/data_aggregator.git
 cd data_aggregator
 ```
+
 Set up the environment and enter the required credentials:
 ``bash
 cp env
 ```
+
 Build and start the Docker containers:
 ```bash
 make docker
@@ -70,7 +72,7 @@ make down
 * `docker-compose.yml`: Defines and configures Docker services.
 *  `env`: Environment configuration file for storing sensitive information and settings.
 
-## In future iterations, I would consider:
+## Future Work:
 
 * Implementing a more robust error-handling system
 * Exploring cloud-based solutions for improved scalability
