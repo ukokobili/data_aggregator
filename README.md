@@ -17,7 +17,7 @@ This project implements an automated data pipeline for analyzing cryptocurrency 
 
 ### Data Architecture
 
-This project uses a containerized architecture with Docker to ensure consistency across environments. Python is used for the ETL processes, with separate modules for extraction, transformation, and loading. Data is stored in Motherduck data warehouse, and logging is implemented for monitoring and debugging.
+This project uses a containerized architecture with Docker to ensure consistency across environments. Python is used for the ETL processes, with separate extraction, transformation, and loading modules. Data is stored in the Motherduck data warehouse, and logging is implemented for monitoring and debugging.
 
 ## Prerequisites
 
@@ -28,10 +28,11 @@ Make (for using the Makefile)
 Github
 
 ## How to Run This Project
-
 Follow these step-by-step instructions to get the project up and running:
 Clone the repository and navigate to the project directory.
-bash ```
+
+bash 
+   ```
 git clone https://github.com/yourusername/crypto-metrics-dashboard.git
 cd crypto-metrics-dashboard
 ```
