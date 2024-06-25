@@ -31,35 +31,40 @@ Github
 Follow these step-by-step instructions to get the project up and running:
 Clone the repository and navigate to the project directory.
 
- shell```
+ ```bash
 git clone https://github.com/yourusername/crypto-metrics-dashboard.git
 cd crypto-metrics-dashboard
 ```
 Build and start the Docker containers:
-bash ```
+
+```bash
 make docker
 ```
 
 Run the data pipeline:
-Copypython scripts/data_pipeline.py
+```bash
+python scripts/data_pipeline.py
+```
 
 To run tests:
-Copypytest test/unit
-pytest test/integration
+```bash
+make ci
+```
 
 To stop and remove the containers:
-Copydocker-compose down
+```bash
+make down
+```
 
+## Project Structure
 
-Project Structure
-
-containers/: Contains Dockerfile and requirements for containerization.
-logs/: Logging configuration and log files.
-media/: Images for documentation.
-scripts/: Main Python scripts including the data pipeline and ETL processes.
-test/: Unit and integration tests.
-Makefile: Contains commands for common operations.
-docker-compose.yml: Defines and configures Docker services.
+* `containers/`: Contains Dockerfile and requirements for containerization.
+* `logs/`: Logging configuration and log files.
+* `media/`: Images for documentation.
+* `scripts/`: Main Python scripts including the data pipeline and ETL processes.
+* `test/`: Unit and integration tests.
+* `Makefile`: Contains commands for common operations.
+* `docker-compose.yml`: Defines and configures Docker services.
 
 Lessons Learned
 During this project, I gained valuable experience in:
