@@ -38,12 +38,10 @@ Clone the repository and navigate to the project directory.
 git clone https://github.com/ukokobili/data_aggregator.git
 cd data_aggregator
 ```
-
 Set up the environment and enter the required credentials:
-``bash
+```bash
 cp env
 ```
-
 Build and start the Docker containers:
 ```bash
 make docker
