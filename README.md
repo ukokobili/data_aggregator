@@ -80,6 +80,6 @@ make down
 
 For any questions or feedback, don't hesitate to get in touch with me:
 * [LinkedIn](https://www.linkedin.com/in/jacobukokobili/)
-* [Twitter](https://x.com/jacobukokobili).
+* [Twitter](https://x.com/jacobukokobili)
 
 Would you like me to explain or elaborate on any part of this README?
