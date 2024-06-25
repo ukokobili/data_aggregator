@@ -31,8 +31,7 @@ Github
 Follow these step-by-step instructions to get the project up and running:
 Clone the repository and navigate to the project directory.
 
-bash 
-   ```
+ shell```
 git clone https://github.com/yourusername/crypto-metrics-dashboard.git
 cd crypto-metrics-dashboard
 ```
