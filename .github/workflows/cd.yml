@@ -3,9 +3,9 @@ on:
   push:
     branches:
       - main
-  schedule:
-    # Scheduled to run every 10 minutes
-    - cron: '*/30 * * * *'
+  # schedule:
+  #   # Scheduled to run every 10 minutes
+  #   - cron: '*/30 * * * *'
 
 env:
   MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
